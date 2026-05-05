@@ -35,19 +35,14 @@ return {
               })
             end,
             my_anthropic = function()
-              return require("codecompanion.adapters").extend("anthropic", {
-                url = "https://api.metisai.ir/api/v1/wrapper/anthropic/chat/completions",
+              return require("codecompanion.adapters").extend("claude_code", {
                 env = {
+                  url = "https://api.metisai.ir/anthropic/v1",
                   api_key = "cmd: zsh -c 'echo -n ${METIS_API_KEY}'", -- optional: if your endpoint is authenticated
-                },
-                headers = {
-                  ["Content-Type"] = "application/json",
-                  ["Authorization"] = "Bearer ${api_key}",
-                  ["x-api-key"] = "",
                 },
                 schema = {
                   model = {
-                    default = "claude-3-opus", -- define llm model to be used
+                    default = "claude-opus-4-7", -- define llm model to be used
                   },
                 },
               })
@@ -62,7 +57,8 @@ return {
                 },
                 schema = {
                   model = {
-                    default = "gpt-4.1-mini", -- define llm model to be used
+                    -- default = "gpt-4.1-mini", -- define llm model to be used
+                    default = "gpt-5.4-mini", -- define llm model to be used
                   },
                   temperature = {
                     order = 2,
