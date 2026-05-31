@@ -38,5 +38,3 @@ vim.keymap.set('n', '<Leader>f/', builtin.current_buffer_fuzzy_find, {desc = 'Fu
 vim.keymap.set('n', '<Tab>', ':bnext<CR>', { desc = 'Go to next buffer' })
 vim.keymap.set('n', '<Leader><Tab>', ':bprevious<CR>', { desc = 'Go to previous buffer' })
 
--- this is configuration for the black format but we can use it for the future
--- vim.keymap.set('n', '<leader>F', ':!black %<CR>')
