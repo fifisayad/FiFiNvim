@@ -14,13 +14,23 @@ return {
       return require("codecompanion").setup({
         strategies = {
           chat = {
-            adapter = "my_openai",
+            adapter = "my_anthropic",
           },
           inline = {
             adapter = "my_openai",
           },
         },
         adapters = {
+          acp={
+            my_anthropic = function()
+              return require("codecompanion.adapters").extend("claude_code", {
+                env = {
+                  ANTHROPIC_API_KEY= "cmd: zsh -c 'echo -n ${ANTHROPIC_AUTH_TOKEN}'",
+                },
+              })
+            end,
+
+          },
           http={
             ollama = function()
               return require("codecompanion.adapters").extend("ollama", {
@@ -30,19 +40,6 @@ return {
                   },
                   num_ctx = {
                     default = 20000,
-                  },
-                },
-              })
-            end,
-            my_anthropic = function()
-              return require("codecompanion.adapters").extend("claude_code", {
-                env = {
-                  url = "https://api.metisai.ir/anthropic/v1",
-                  api_key = "cmd: zsh -c 'echo -n ${METIS_API_KEY}'", -- optional: if your endpoint is authenticated
-                },
-                schema = {
-                  model = {
-                    default = "claude-opus-4-7", -- define llm model to be used
                   },
                 },
               })
