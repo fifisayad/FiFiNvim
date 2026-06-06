@@ -13,6 +13,9 @@ if not (vim.env.LAZY or (vim.uv or vim.loop).fs_stat(lazypath)) then
   end
 end
 
+-- Increase heap for Kotlin Language Server (large project with many dependencies)
+vim.env.JAVA_OPTS = "-Xmx4g"
+
 vim.opt.rtp:prepend(lazypath)
 
 -- validate that lazy is available
