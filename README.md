@@ -32,3 +32,25 @@ git clone https://github.com/<your_user>/<your_repository> ~/.config/nvim
 ```shell
 nvim
 ```
+
+## Important Point for the following usage
+
+these tools are need to be executed by the following commands
+
+### (kmp-lsp)[https://github.com/Hessesian/kmp-lsp]
+
+this is a kotlin language server protocol which needs to run this command and install it through cargo
+
+```
+cargo install kmp-lsp
+```
+
+for usage in a source code directory
+
+```
+kmp-lsp extract-sources .
+```
+
+### fzf-telescope
+
+you need to install fzf or grep.
