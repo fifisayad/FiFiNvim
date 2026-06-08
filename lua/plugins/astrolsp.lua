@@ -55,7 +55,7 @@ return {
         -- JavaVersion parser throws `IllegalArgumentException: 25.0.3` on the
         -- system JDK 25 and crashes the server on startup. Run it under JDK 21
         -- (the newest JDK Kotlin 2.1.0 supports) instead of the system default.
-        cmd_env = { JAVA_HOME = "/usr/lib/jvm/java-21-openjdk-amd64" },
+        cmd_env = { JAVA_HOME = "/usr/lib/jvm/java-17-openjdk-amd64" },
       },
     },
     -- customize how language servers are attached
@@ -123,3 +123,4 @@ return {
     end,
   },
 }
+
