@@ -41,3 +41,22 @@ vim.keymap.set('n', '<Leader>f/', builtin.current_buffer_fuzzy_find, {desc = 'Fu
 vim.keymap.set('n', '<Tab>', ':bnext<CR>', { desc = 'Go to next buffer' })
 vim.keymap.set('n', '<Leader><Tab>', ':bprevious<CR>', { desc = 'Go to previous buffer' })
 
+
+-- this is for kmp lsp that is a lsp for java, kotlin
+local lspconfig = require('lspconfig')
+local configs   = require('lspconfig.configs')
+
+if not configs.kmp_lsp then
+  configs.kmp_lsp = {
+    default_config = {
+      cmd       = { 'kmp-lsp' },
+      filetypes = { 'kotlin', 'java', 'swift' },
+      root_dir  = lspconfig.util.root_pattern(
+        'build.gradle', 'build.gradle.kts', 'pom.xml', 'settings.gradle', 'Package.swift', '.git'
+      ),
+      settings  = {},
+    },
+  }
+end
+
+lspconfig.kmp_lsp.setup {}
