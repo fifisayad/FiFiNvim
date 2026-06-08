@@ -50,6 +50,13 @@ return {
       bashls = {
         filetypes = { "sh", "bash", "zsh" },  -- add zsh here
       },
+      kotlin_language_server = {
+        -- kotlin-language-server bundles Kotlin compiler 2.1.0, whose IntelliJ
+        -- JavaVersion parser throws `IllegalArgumentException: 25.0.3` on the
+        -- system JDK 25 and crashes the server on startup. Run it under JDK 21
+        -- (the newest JDK Kotlin 2.1.0 supports) instead of the system default.
+        cmd_env = { JAVA_HOME = "/usr/lib/jvm/java-21-openjdk-amd64" },
+      },
     },
     -- customize how language servers are attached
     handlers = {
@@ -104,6 +111,15 @@ return {
     on_attach = function(client, bufnr)
       -- this would disable semanticTokensProvider for all clients
       -- client.server_capabilities.semanticTokensProvider = nil
+
+      -- kotlin-language-server's documentHighlight is broken: it recompiles the
+      -- symbol in an isolated `dummy.virtual.kt` context where Kotlin's frontend
+      -- can't resolve top-level descriptors, throwing KotlinFrontEndException and
+      -- surfacing as "-32603: Internal error". Disable just that capability so the
+      -- working features (definition, completion, hover) keep functioning quietly.
+      if client.name == "kotlin_language_server" then
+        client.server_capabilities.documentHighlightProvider = nil
+      end
     end,
   },
 }
